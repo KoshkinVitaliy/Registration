@@ -1,6 +1,6 @@
 package authorization;
 
-public class User implements UserInterface {
+public class User {
     private String username;
     private String password;
 
@@ -19,10 +19,5 @@ public class User implements UserInterface {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public void authorize() {
-
     }
 }

@@ -2,16 +2,17 @@ package authorization;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Scanner;
 
-public class Authorization {
+public class Authorization implements UserInterface {
     public static final String DATABASE_PATH =
             "C:\\Users\\admin\\IdeaProjects\\Registration\\src\\main\\resources\\database.txt";
 
-    File databaseFile = new File(DATABASE_PATH);
+    public static File databaseFile = new File(DATABASE_PATH);
     HashMap<Integer, User> data = new HashMap<>();
 
 
-    public void readDatabaseFile() {
+    private void readDatabaseFile() {
         try(FileReader fileReader = new FileReader(databaseFile)) {
             BufferedReader reader = new BufferedReader(fileReader);
             String line = reader.readLine();
@@ -63,5 +64,31 @@ public class Authorization {
         parseUsername(line, user);
         parsePassword(line, user);
         data.put(counter, user);
+    }
+
+    @Override
+    public void authorize() {
+        System.out.println("Введите логин: ");
+        Scanner scanner = new Scanner(System.in);
+        String usernameScanner = scanner.nextLine();
+        System.out.println("Введите пароль: ");
+        String passwordScanner = scanner.nextLine();
+
+        checkData(usernameScanner, passwordScanner);
+    }
+
+    private void checkData(String usernameScanner, String passwordScanner) {
+        readDatabaseFile();
+        if (data.get(0).getUsername().equals(usernameScanner)) {
+            if (data.get(0).getPassword().equals(passwordScanner)) {
+                System.out.println("Вы успешно авторизованы.");
+            }
+            else {
+                System.out.println("Неверный пароль.");
+            }
+        }
+        else {
+            System.out.println("Неверный логин или пароль.");
+        }
     }
 }

@@ -1,10 +1,11 @@
 package org.example;
+import authorization.Selector;
 
-import authorization.Authorization;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        Authorization authorization = new Authorization();
-        authorization.readDatabaseFile();
+    public static void main(String[] args) throws IOException {
+        Selector selector = new Selector();
+        selector.select();
     }
 }
